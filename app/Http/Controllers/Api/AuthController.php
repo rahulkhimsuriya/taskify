@@ -12,14 +12,14 @@ class AuthController extends Controller
 {
     public function login()
     {
-        $validatedData = request()->validate([
+        $validateData = request()->validate([
             'email' => ['required', 'email', 'string'],
             'password' => ['required', 'string']
         ]);
 
         if (Auth::attempt([
-            'email' => $validatedData['email'],
-            'password' => $validatedData['password']])
+            'email' => $validateData['email'],
+            'password' => $validateData['password']])
         ) {
             $user = Auth::user();
             $accessToken = $user->createToken('authToken')->accessToken;
@@ -32,5 +32,22 @@ class AuthController extends Controller
                 401
             );
         }
+    }
+
+    public function register()
+    {
+        $validateData = request()->validate([
+            'name' => ['required', 'min:2', 'max:50', 'string'],
+            'email' => ['required', 'string', 'email', 'unique:users'],
+            'password' => ['required', 'min:8', 'string'],
+        ]);
+
+        $user = \App\User::create($validateData);
+
+        $user = Auth::loginUsingId($user->id);
+        $accessToken = $user->createToken('authToken')->accessToken;
+        $user->access_token = $accessToken;
+
+        return response()->json(new UserResource($user), 201);
     }
 }
