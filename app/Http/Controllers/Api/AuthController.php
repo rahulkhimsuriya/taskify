@@ -27,7 +27,7 @@ class AuthController extends Controller
 
             return response()->json(new UserResource($user), 200);
         } else {
-            return $response->json(
+            return response()->json(
                 ['success' => false, 'message' => 'Please provide valide credentials.'],
                 401
             );
@@ -42,6 +42,8 @@ class AuthController extends Controller
             'password' => ['required', 'min:8', 'string'],
         ]);
 
+        $validateData['password'] = Hash::make($validateData['password']);
+
         $user = \App\User::create($validateData);
 
         $user = Auth::loginUsingId($user->id);
@@ -49,5 +51,12 @@ class AuthController extends Controller
         $user->access_token = $accessToken;
 
         return response()->json(new UserResource($user), 201);
+    }
+
+    public function logout()
+    {
+        Auth::user()->tokens->each->delete();
+
+        return response()->json(['You logout successfully.'], 201);
     }
 }
