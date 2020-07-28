@@ -27,6 +27,14 @@ export default new Vuex.Store({
                     commit('SET_USER_DATA', data);
                 });
         },
+
+        register({ commit }, { name, email, password }) {
+            return axios
+                .post('/api/register', { name, email, password })
+                .then(({ data }) => {
+                    commit('SET_USER_DATA', data);
+                });
+        },
     },
 
     getters: {},
