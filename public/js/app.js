@@ -2007,10 +2007,24 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'BaseNavbar',
   data: function data() {
     return {};
+  },
+  methods: {
+    logout: function logout() {
+      this.$store.dispatch('logout');
+    }
   }
 });
 
@@ -4003,7 +4017,19 @@ var render = function() {
               ])
             ],
             1
-          )
+          ),
+          _vm._v(" "),
+          _c("li", { staticClass: "ml-4" }, [
+            _c(
+              "button",
+              {
+                staticClass:
+                  "text-base font-semibold uppercase tracking-wide text-gray-800 border-b border-transparent hover:border-gray-800 focus:outline-none",
+                on: { click: _vm.logout }
+              },
+              [_vm._v("\n                    Logout\n                ")]
+            )
+          ])
         ])
       ])
     ]
@@ -21045,6 +21071,10 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
       state.user = user;
       localStorage.setItem('user', JSON.stringify(user));
       axios__WEBPACK_IMPORTED_MODULE_2___default.a.defaults.headers.common['Authorization'] = "Bearer ".concat(user.access_token);
+    },
+    CLEAR_USER_DATA: function CLEAR_USER_DATA(state) {
+      localStorage.removeItem('user');
+      location.reload('/login');
     }
   },
   actions: {
@@ -21072,6 +21102,12 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
       }).then(function (_ref6) {
         var data = _ref6.data;
         commit('SET_USER_DATA', data);
+      });
+    },
+    logout: function logout(_ref7) {
+      var commit = _ref7.commit;
+      return axios__WEBPACK_IMPORTED_MODULE_2___default.a["delete"]('/api/logout').then(function () {
+        commit('CLEAR_USER_DATA');
       });
     }
   },

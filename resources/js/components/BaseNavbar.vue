@@ -20,6 +20,15 @@
                         >Register</router-link
                     >
                 </li>
+
+                <li class="ml-4">
+                    <button
+                        @click="logout"
+                        class="text-base font-semibold uppercase tracking-wide text-gray-800 border-b border-transparent hover:border-gray-800 focus:outline-none"
+                    >
+                        Logout
+                    </button>
+                </li>
             </ul>
         </div>
     </nav>
@@ -31,6 +40,12 @@
 
         data() {
             return {};
+        },
+
+        methods: {
+            logout() {
+                this.$store.dispatch('logout');
+            },
         },
     };
 </script>

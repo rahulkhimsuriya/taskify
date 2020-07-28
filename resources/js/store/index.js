@@ -17,6 +17,11 @@ export default new Vuex.Store({
                 'Authorization'
             ] = `Bearer ${user.access_token}`;
         },
+
+        CLEAR_USER_DATA(state) {
+            localStorage.removeItem('user');
+            location.reload('/login');
+        },
     },
 
     actions: {
@@ -34,6 +39,12 @@ export default new Vuex.Store({
                 .then(({ data }) => {
                     commit('SET_USER_DATA', data);
                 });
+        },
+
+        logout({ commit }) {
+            return axios.delete('/api/logout').then(() => {
+                commit('CLEAR_USER_DATA');
+            });
         },
     },
 
