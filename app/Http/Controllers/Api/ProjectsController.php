@@ -54,6 +54,10 @@ class ProjectsController extends Controller
 
     public function destroy(Project $project)
     {
-        //
+        $this->authorize('update', $project);
+
+        $project->delete();
+
+        return response()->json(['message' => 'Projects deleted successfully.',], 204);
     }
 }
