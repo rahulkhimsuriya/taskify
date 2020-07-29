@@ -33,4 +33,13 @@ class ProjectTasksController extends Controller
 
         return response()->json(['message' => 'Task updated successfully.','data' => $task->fresh()], 201);
     }
+
+    public function destroy(Request $request, Project $project, Task $task)
+    {
+        $this->authorize('update', $task);
+
+        $task->delete();
+
+        return response()->json(['message' => 'Task deleted successfully.'], 204);
+    }
 }
