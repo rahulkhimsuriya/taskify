@@ -39,7 +39,7 @@
 
         methods: {
             login() {
-                this.$store.dispatch('login', this.user).then(() => {
+                this.$store.dispatch('auth/login', this.user).then(() => {
                     this.$router.push({ name: 'dashboard' });
                 });
             },

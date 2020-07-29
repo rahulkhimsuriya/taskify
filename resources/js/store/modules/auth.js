@@ -1,5 +1,7 @@
 import axios from 'axios';
 
+export const namespaced = true;
+
 export const state = {
     user: null,
 };

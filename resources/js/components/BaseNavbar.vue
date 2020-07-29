@@ -71,12 +71,12 @@
         },
 
         computed: {
-            ...mapGetters(['isLogedIn']),
+            ...mapGetters('auth', ['isLogedIn']),
         },
 
         methods: {
             logout() {
-                this.$store.dispatch('logout');
+                this.$store.dispatch('auth/logout');
             },
         },
     };

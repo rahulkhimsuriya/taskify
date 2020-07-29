@@ -53,7 +53,7 @@
 
         methods: {
             register() {
-                this.$store.dispatch('register', this.user).then(() => {
+                this.$store.dispatch('auth/register', this.user).then(() => {
                     this.$router.push({ name: 'dashboard' });
                 });
             },

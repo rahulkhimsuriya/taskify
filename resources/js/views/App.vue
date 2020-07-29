@@ -17,7 +17,7 @@
         },
 
         computed: {
-            ...mapGetters(['isLogedIn']),
+            ...mapGetters('auth', ['isLogedIn']),
         },
     };
 </script>
