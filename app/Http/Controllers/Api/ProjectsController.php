@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Project;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\Project\ProjectCreateRequest;
-use App\Http\Resources\Api\Project\ProjectCreateResource;
+use App\Http\Resources\Api\Project\ProjectResource;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
@@ -13,7 +13,9 @@ class ProjectsController extends Controller
 {
     public function index()
     {
-        //
+        $projects = Auth::user()->projects;
+
+        return response()->json(['data' => ProjectResource::collection($projects)], 200);
     }
 
     public function store(ProjectCreateRequest $request)
@@ -23,7 +25,7 @@ class ProjectsController extends Controller
         return response()->json(
             [
             'message' => 'Projects created successfully.',
-            'data' => new ProjectCreateResource($project)
+            'data' => new ProjectResource($project)
             ],
             201
         );
