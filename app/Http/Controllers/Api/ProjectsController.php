@@ -34,7 +34,11 @@ class ProjectsController extends Controller
 
     public function show(Project $project)
     {
-        //
+        $this->authorize('update', $project);
+        
+        $project->load(['owner', 'tasks']);
+
+        return response()->json(['data' => $project], 200);
     }
 
     public function update(ProjectUpdateRequest $request, Project $project)
