@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Project;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\Project\ProjectCreateRequest;
+use App\Http\Requests\Api\Project\ProjectUpdateRequest;
 use App\Http\Resources\Api\Project\ProjectResource;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
@@ -36,9 +37,19 @@ class ProjectsController extends Controller
         //
     }
 
-    public function update(Request $request, Project $project)
+    public function update(ProjectUpdateRequest $request, Project $project)
     {
-        //
+        $this->authorize('update', $project);
+
+        $project->update($request->toArray());
+
+        return response()->json(
+            [
+            'message' => 'Projects updated successfully.',
+            'data' => new ProjectResource($project->fresh())
+            ],
+            201
+        );
     }
 
     public function destroy(Project $project)
