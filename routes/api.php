@@ -23,4 +23,6 @@ Route::post('/register', 'Api\AuthController@register');
 
 Route::middleware('auth:api')->group(function () {
     Route::delete('/logout', 'Api\AuthController@logout');
+
+    Route::apiResource('projects', 'Api\ProjectsController');
 });
