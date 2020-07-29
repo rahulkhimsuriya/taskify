@@ -1,6 +1,8 @@
 <template>
-    <div>
-        <h1 class="text-4xl text-gray-800 font-bold">Home</h1>
+    <div class="text-center mt-10">
+        <h1 class="text-3xl text-gray-800 font-semibold">
+            Welcome to Home page.
+        </h1>
     </div>
 </template>
 

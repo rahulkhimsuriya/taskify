@@ -1,5 +1,7 @@
 <template>
-    <h1 class="text-3xl text-gray-800 font-bold">Dashboard</h1>
+    <div class="text-center">
+        <h1 class="text-3xl text-white font-semibold">Dashboard</h1>
+    </div>
 </template>
 
 <script>

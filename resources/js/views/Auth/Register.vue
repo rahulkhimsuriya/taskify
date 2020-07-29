@@ -1,8 +1,10 @@
 <template>
-    <div class="mx-auto max-w-sm">
-        <h3 class="text-2xl text-gray-800 font-bold text-center">Register</h3>
+    <div class="p-6 mx-auto max-w-md">
+        <h3 class="text-2xl text-gray-800 font-bold tracking-wide text-center">
+            Register
+        </h3>
 
-        <form @submit.prevent="register">
+        <form @submit.prevent="register" class="mt-2">
             <BaseInput
                 label="Name"
                 type="text"
@@ -14,7 +16,7 @@
                 label="Email"
                 type="email"
                 class="mt-2"
-                placeholder="example@example.com"
+                placeholder="email@example.com"
                 v-model="user.email"
             />
 
@@ -22,7 +24,7 @@
                 label="Password"
                 type="password"
                 class="mt-2"
-                placeholder="password"
+                placeholder="Password"
                 v-model="user.password"
             />
 
@@ -30,6 +32,12 @@
                 >Register</BaseButton
             >
         </form>
+
+        <div class="mt-6 text-gray-800 text-center font-semibold underline">
+            <router-link :to="{ name: 'login' }"
+                >Already have account? Login</router-link
+            >
+        </div>
     </div>
 </template>
 
