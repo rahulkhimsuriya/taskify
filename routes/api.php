@@ -34,4 +34,6 @@ Route::middleware('auth:api')->group(function () {
     
     Route::delete('projects/{project}/tasks/{task}', 'Api\ProjectTasksController@destroy')
     ->middleware('can:update,project');
+
+    Route::patch('/tasks/{task}/complete', 'Api\TaskCompleteController@update');
 });

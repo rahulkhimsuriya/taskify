@@ -29,8 +29,7 @@ class Task extends Model
      */
     protected $casts = [
         'user_id' => 'integer',
-        'project_id' => 'integer',
-        'completed' => 'datetime',
+        'project_id' => 'integer'
     ];
 
     public function user()
@@ -41,5 +40,20 @@ class Task extends Model
     public function project()
     {
         return $this->belongsTo(Project::class);
+    }
+
+    public function isCompleted()
+    {
+        return !! $this->completed;
+    }
+
+    public function complete()
+    {
+        return $this->update(['completed' => \Carbon\Carbon::now()]);
+    }
+
+    public function incomplete()
+    {
+        return $this->update(['completed' => '']);
     }
 }
