@@ -5,19 +5,19 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Project extends Model
+class Task extends Model
 {
     use SoftDeletes;
-    
+
     protected $guarded = [];
 
-    public function owner()
+    public function user()
     {
         return $this->belongsTo(User::class);
     }
 
-    public function tasks()
+    public function project()
     {
-        return $this->hasMany(Task::class);
+        return $this->belongsTo(Project::class);
     }
 }

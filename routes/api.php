@@ -25,4 +25,7 @@ Route::middleware('auth:api')->group(function () {
     Route::delete('/logout', 'Api\AuthController@logout');
 
     Route::apiResource('projects', 'Api\ProjectsController');
+
+    Route::post('projects/{project}/tasks', 'Api\ProjectTasksController@store')
+    ->middleware('can:update,project');
 });
