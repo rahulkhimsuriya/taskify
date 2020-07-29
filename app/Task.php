@@ -12,6 +12,15 @@ class Task extends Model
     protected $guarded = [];
 
     /**
+     * The attributes that should be hidden for arrays.
+     *
+     * @var array
+     */
+    protected $hidden = [
+        'deleted_at',
+    ];
+
+    /**
      * The attributes that should be cast to native types.
      *
      * @var array

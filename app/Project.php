@@ -12,6 +12,15 @@ class Project extends Model
     protected $guarded = [];
 
     /**
+     * The attributes that should be hidden for arrays.
+     *
+     * @var array
+     */
+    protected $hidden = [
+        'deleted_at',
+    ];
+
+    /**
      * The attributes that should be cast to native types.
      *
      * @var array
@@ -28,5 +37,13 @@ class Project extends Model
     public function tasks()
     {
         return $this->hasMany(Task::class);
+    }
+
+    public function createTask($body)
+    {
+        return $this->tasks()->create([
+            'user_id' => auth()->id(),
+            'body' => $body
+        ]);
     }
 }

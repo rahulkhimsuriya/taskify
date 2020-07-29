@@ -15,13 +15,8 @@ class ProjectTasksController extends Controller
             'body' => ['required', 'string', 'min:3', 'max:150']
         ]);
 
-        $task = $project->tasks()->create([
-            'user_id' => auth()->id(),
-            'body' => $request->body
-        ]);
+        $task = $project->createTask($request->body);
 
-        return response()->json([
-            'message' => 'Task created successfully.',
-            'data' => $task], 201);
+        return response()->json(['message' => 'Task created successfully.','data' => $task], 201);
     }
 }
