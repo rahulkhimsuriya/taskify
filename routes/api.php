@@ -28,4 +28,7 @@ Route::middleware('auth:api')->group(function () {
 
     Route::post('projects/{project}/tasks', 'Api\ProjectTasksController@store')
     ->middleware('can:update,project');
+
+    Route::patch('projects/{project}/tasks/{task}', 'Api\ProjectTasksController@update')
+    ->middleware('can:update,project');
 });

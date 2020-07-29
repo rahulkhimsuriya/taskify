@@ -11,6 +11,8 @@ class Task extends Model
 
     protected $guarded = [];
 
+    protected $touches = ['project'];
+
     /**
      * The attributes that should be hidden for arrays.
      *
