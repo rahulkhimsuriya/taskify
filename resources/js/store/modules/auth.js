@@ -49,4 +49,8 @@ export const getters = {
     isLogedIn(state) {
         return !!state.user;
     },
+
+    getUser(state) {
+        return state.user.user;
+    },
 };

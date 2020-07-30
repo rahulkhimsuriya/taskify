@@ -5,7 +5,7 @@
     >
         <BaseNavbar />
         <!-- component matched by the route will render here -->
-        <router-view></router-view>
+        <router-view :key="$route.fullPath"></router-view>
     </div>
 </template>
 

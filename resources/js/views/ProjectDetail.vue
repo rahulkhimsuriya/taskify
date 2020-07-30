@@ -5,9 +5,8 @@
                 <header>
                     <h1
                         class="text-3xl text-semibold text-white tracking-wide leading-none"
-                    >
-                        Hi Rahul
-                    </h1>
+                        v-text="greetingWithName"
+                    ></h1>
                     <p
                         class="mt-2 text-sm text-gray-600 tracking-wide leading-none"
                     >
@@ -26,7 +25,16 @@
             class="w-1/2 bg-white absolute right-0 inset-y-0 p-10 m-4 rounded shadow"
         >
             <header>
-                <div></div>
+                <h2
+                    class="text-2xl font-semibold text-gray-800 tracking-wide leading-none"
+                >
+                    {{ project.title }}
+                </h2>
+                <p
+                    class="mt-4 text-sm text-gray-500 tracking-wide leading-tight"
+                >
+                    {{ project.description }}
+                </p>
             </header>
         </div>
     </div>
@@ -34,14 +42,37 @@
 
 <script>
     import ProjectList from '../components/ProjectList.vue';
+    import store from '../store';
 
     export default {
-        name: 'Dashboard',
+        name: 'ProjectDetail',
+
+        props: {
+            id: { type: [Number, String], required: true },
+        },
 
         components: { ProjectList },
 
         data() {
-            return {};
+            return {
+                project: {},
+            };
+        },
+
+        computed: {
+            user() {
+                return this.$store.getters['auth/getUser'];
+            },
+
+            greetingWithName() {
+                return `Hi ${this.user.name}`;
+            },
+        },
+
+        created() {
+            this.$store
+                .dispatch('project/fetchProject', this.id)
+                .then((project) => (this.project = project));
         },
     };
 </script>

@@ -15,19 +15,28 @@ export const mutations = {
 };
 
 export const actions = {
-    fetchProjects({ commit }) {
+    fetchProjects({ commit, state }) {
+        if (state.projects) {
+            return state.projects;
+        }
         return axios.get('/api/projects').then(({ data }) => {
             commit('SET_PROJECTS_DATA', data.data);
+        });
+    },
+
+    fetchProject({ commit }, projectId) {
+        return axios.get(`/api/projects/${projectId}`).then(({ data }) => {
+            return data.data;
         });
     },
 };
 
 export const getters = {
-    projects(state) {
+    getProjects(state) {
         return state.projects;
     },
 
-    totalProjects(state) {
+    getTotalProjects(state) {
         return state.totalProjects;
     },
 };
