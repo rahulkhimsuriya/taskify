@@ -36,12 +36,30 @@
                     {{ project.description }}
                 </p>
             </header>
+
+            <div class="my-10">
+                <h3
+                    class="text-xl font-medium text-gray-800 tracking-wide leading-none"
+                >
+                    Tasks
+                </h3>
+
+                <div class="mt-6">
+                    <Task
+                        v-for="task in project.tasks"
+                        :key="task.id"
+                        :task="task"
+                        class="mt-2"
+                    />
+                </div>
+            </div>
         </div>
     </div>
 </template>
 
 <script>
     import ProjectList from '../components/ProjectList.vue';
+    import Task from '../components/Task.vue';
     import store from '../store';
 
     export default {
@@ -51,7 +69,7 @@
             id: { type: [Number, String], required: true },
         },
 
-        components: { ProjectList },
+        components: { ProjectList, Task },
 
         data() {
             return {
