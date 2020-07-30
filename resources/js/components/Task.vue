@@ -1,8 +1,8 @@
 <template>
     <div class="flex">
-        <span>
+        <button @click="toggle" class="focus:outline-none">
             <svg
-                class="h-6 w-6"
+                class="h-6 w-6 border focus:border-gray-800 rounded-full"
                 :class="isCompleted ? 'text-teal-600' : 'text-gray-400'"
                 fill="currentColor"
                 viewBox="0 0 20 20"
@@ -13,24 +13,36 @@
                     clip-rule="evenodd"
                 />
             </svg>
-        </span>
+        </button>
         <p class="ml-2 text-sm font-normal text-gray-800">{{ task.body }}</p>
     </div>
 </template>
 
 <script>
+    import axios from 'axios';
+
     export default {
         name: 'Task',
 
         props: ['task'],
 
         data() {
-            return {};
+            return {
+                isCompleted: false,
+            };
         },
 
-        computed: {
-            isCompleted() {
-                return !!this.task.completed;
+        created() {
+            this.isCompleted = !!this.task.completed;
+        },
+
+        methods: {
+            toggle() {
+                axios
+                    .patch(`/api/tasks/${this.task.id}/complete`)
+                    .then(({ data }) => {
+                        this.isCompleted = !this.isCompleted;
+                    });
             },
         },
     };
