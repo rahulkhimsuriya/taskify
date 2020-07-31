@@ -22,25 +22,45 @@ export const mutations = {
 };
 
 export const actions = {
-    login({ commit }, { email, password }) {
+    login({ commit, dispatch }, { email, password }) {
         return axios
             .post('/api/login', { email, password })
             .then(({ data }) => {
                 commit('SET_USER_DATA', data);
+
+                const notification = {
+                    type: 'success',
+                    message: `You're signin successfull.`,
+                };
+
+                dispatch('notification/add', notification, { root: true });
             });
     },
 
-    register({ commit }, { name, email, password }) {
+    register({ commit, dispatch }, { name, email, password }) {
         return axios
             .post('/api/register', { name, email, password })
             .then(({ data }) => {
                 commit('SET_USER_DATA', data);
+
+                const notification = {
+                    type: 'success',
+                    message: `You're register successfull.`,
+                };
+
+                dispatch('notification/add', notification, { root: true });
             });
     },
 
-    logout({ commit }) {
+    logout({ commit, dispatch }) {
         return axios.delete('/api/logout').then(() => {
             commit('CLEAR_USER_DATA');
+
+            const notification = {
+                type: 'success',
+                message: 'Your logout successfull.',
+            };
+            dispatch('notification/add', notification, { root: true });
         });
     },
 };

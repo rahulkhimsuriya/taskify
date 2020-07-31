@@ -21,7 +21,7 @@ export const actions = {
         commit('SET_TASKS_DATA', tasks);
     },
 
-    createTask({ commit, rootState }, task) {
+    createTask({ commit, dispatch, rootState }, task) {
         const project = rootState.project.selectedProject;
         return axios
             .post(`/api/projects/${project.id}/tasks`, {
@@ -29,6 +29,13 @@ export const actions = {
             })
             .then(({ data }) => {
                 commit('CREATE_TASK', data.data);
+
+                const notification = {
+                    type: 'success',
+                    message: 'Task created.',
+                };
+                dispatch('notification/add', notification, { root: true });
+
                 return data.data;
             });
     },

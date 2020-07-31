@@ -4,6 +4,7 @@
         :class="{ 'bg-gray-800': isLogedIn }"
     >
         <BaseNavbar />
+        <NotificationContainer />
         <!-- component matched by the route will render here -->
         <router-view :key="$route.fullPath"></router-view>
     </div>
@@ -11,9 +12,14 @@
 
 <script>
     import { mapGetters } from 'vuex';
+    import NotificationContainer from '../components/NotificationContainer.vue';
 
     export default {
         name: 'App',
+
+        components: {
+            NotificationContainer,
+        },
 
         data() {
             return {};

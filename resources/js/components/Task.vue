@@ -42,6 +42,15 @@
                     .patch(`/api/tasks/${this.task.id}/complete`)
                     .then(({ data }) => {
                         this.isCompleted = !this.isCompleted;
+
+                        const notification = {
+                            type: 'success',
+                            message: data.message,
+                        };
+
+                        this.$store.dispatch('notification/add', notification, {
+                            root: true,
+                        });
                     });
             },
         },
