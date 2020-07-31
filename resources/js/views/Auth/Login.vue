@@ -14,9 +14,7 @@
                 v-model="user.password"
             />
 
-            <BaseButton type="submit" name="submit" class="mt-4"
-                >Login</BaseButton
-            >
+            <BaseButton class="mt-4">Login</BaseButton>
         </form>
 
         <div class="mt-6 text-gray-800 text-center font-semibold underline">

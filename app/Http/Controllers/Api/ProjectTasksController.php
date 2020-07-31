@@ -16,7 +16,7 @@ class ProjectTasksController extends Controller
             'body' => ['required', 'string', 'min:3', 'max:150']
         ]);
 
-        $task = $project->createTask($validateData);
+        $task = $project->createTask($validateData['body']);
 
         return response()->json(['message' => 'Task created successfully.','data' => $task], 201);
     }
