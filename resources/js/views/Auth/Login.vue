@@ -4,6 +4,10 @@
             Login
         </h3>
 
+        <div class="mt-4 mb-2" v-if="error">
+            <BaseAlert type="danger" :message="error" />
+        </div>
+
         <form @submit.prevent="login" class="mt-2">
             <BaseInput label="Email" type="email" v-model="user.email" />
 
@@ -32,14 +36,25 @@
         data() {
             return {
                 user: {},
+                error: '',
             };
         },
 
         methods: {
             login() {
-                this.$store.dispatch('auth/login', this.user).then(() => {
-                    this.$router.push({ name: 'dashboard' });
-                });
+                this.$store
+                    .dispatch('auth/login', this.user)
+                    .then(() => {
+                        this.$router.push({ name: 'dashboard' });
+                    })
+                    .catch((error) => {
+                        console.log(error.response.data);
+                        if (error.response.data.errors) {
+                            this.error = 'Please provide email and password.';
+                        } else {
+                            this.error = error.response.data.message;
+                        }
+                    });
             },
         },
     };

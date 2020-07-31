@@ -17,7 +17,7 @@ export const mutations = {
 
     CLEAR_USER_DATA(state) {
         localStorage.removeItem('user');
-        location.reload('/login');
+        location.reload();
     },
 };
 

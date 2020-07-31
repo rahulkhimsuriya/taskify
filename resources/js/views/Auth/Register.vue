@@ -11,6 +11,9 @@
                 placeholder="Enter Your Name..."
                 v-model="user.name"
             />
+            <p class="text-sm font-semibold text-red-600" v-if="errors.name">
+                {{ errors.name[0] }}
+            </p>
 
             <BaseInput
                 label="Email"
@@ -19,6 +22,9 @@
                 placeholder="email@example.com"
                 v-model="user.email"
             />
+            <p class="text-sm font-semibold text-red-600" v-if="errors.email">
+                {{ errors.email[0] }}
+            </p>
 
             <BaseInput
                 label="Password"
@@ -27,6 +33,12 @@
                 placeholder="Password"
                 v-model="user.password"
             />
+            <p
+                class="text-sm font-semibold text-red-600"
+                v-if="errors.password"
+            >
+                {{ errors.password[0] }}
+            </p>
 
             <BaseButton class="mt-4">Register</BaseButton>
         </form>
@@ -46,14 +58,20 @@
         data() {
             return {
                 user: {},
+                errors: [],
             };
         },
 
         methods: {
             register() {
-                this.$store.dispatch('auth/register', this.user).then(() => {
-                    this.$router.push({ name: 'dashboard' });
-                });
+                this.$store
+                    .dispatch('auth/register', this.user)
+                    .then(() => {
+                        this.$router.push({ name: 'dashboard' });
+                    })
+                    .catch((error) => {
+                        this.errors = error.response.data.errors;
+                    });
             },
         },
     };
