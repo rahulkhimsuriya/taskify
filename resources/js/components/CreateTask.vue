@@ -30,6 +30,9 @@
                         placeholder="Create new task..."
                         v-model="task"
                     />
+                    <p class="text-sm font-semibold text-red-600" v-if="error">
+                        {{ error }}
+                    </p>
 
                     <BaseButton class="block mt-2 ml-auto">Create</BaseButton>
                 </form>
@@ -53,6 +56,7 @@
         data() {
             return {
                 task: '',
+                error: '',
             };
         },
 
@@ -63,6 +67,9 @@
                     .then((task) => {
                         this.$modal.hide('modalCreateTask');
                         this.task = '';
+                    })
+                    .catch((error) => {
+                        this.error = error.response.data.errors.body[0];
                     });
             },
         },

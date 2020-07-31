@@ -41,6 +41,20 @@ new Vue({
             const userData = JSON.parse(userString);
             this.$store.commit('auth/SET_USER_DATA', userData);
         }
+
+        axios.interceptors.response.use(
+            (response) => response,
+            (error) => {
+                if (error == 'Error: Network Error') {
+                    const notification = {
+                        type: 'error',
+                        message: error,
+                    };
+                    this.$store.dispatch('notification/add', notification);
+                }
+                return Promise.reject(error);
+            }
+        );
     },
     render: (h) => h(App),
 }).$mount('#app');
