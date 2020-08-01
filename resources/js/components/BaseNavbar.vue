@@ -1,10 +1,8 @@
 <template>
     <nav class="container mx-auto py-4 flex items-center justify-between">
         <template v-if="!isLogedIn">
-            <div
-                class="text-lg uppercase tracking-wide font-semibold text-gray-800"
-            >
-                <router-link :to="{ name: 'home' }" exact>Home</router-link>
+            <div class="text-lg tracking-wide font-semibold text-gray-800">
+                <router-link :to="{ name: 'home' }" exact>taskify</router-link>
             </div>
 
             <div>
