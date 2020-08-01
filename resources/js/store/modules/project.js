@@ -18,6 +18,12 @@ export const mutations = {
         state.selectedProject = selectedProject;
     },
 
+    CREATE_PROJECT(state, project) {
+        state.totalProjects += 1;
+
+        state.projects.unshift(project);
+    },
+
     UPDATE_PROJECT(state, project) {
         state.selectedProject = { ...project };
     },
@@ -26,8 +32,6 @@ export const mutations = {
         state.totalProjects -= 1;
 
         state.projects.splice(project, 1);
-
-        console.log(state.projects);
     },
 };
 
@@ -45,6 +49,20 @@ export const actions = {
         return axios.get(`/api/projects/${projectId}`).then(({ data }) => {
             commit('SET_SELECTED_PROJECT', data.data);
             dispatch('task/fetchTasks', data.data.tasks, { root: true });
+            return data.data;
+        });
+    },
+
+    createProject({ commit, dispatch }, project) {
+        return axios.post('/api/projects', project).then(({ data }) => {
+            commit('CREATE_PROJECT', data.data);
+
+            const notification = {
+                type: 'success',
+                message: 'Project created.',
+            };
+            dispatch('notification/add', notification, { root: true });
+
             return data.data;
         });
     },

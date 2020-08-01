@@ -1,12 +1,17 @@
 <template>
     <div>
-        <div class="flex items-center">
-            <h2 class="text-white font-semibold text-base tracking-wide">
-                Projects
-            </h2>
-            <span class="ml-2 text-sm text-gray-600"
-                >({{ totalProjects }})</span
-            >
+        <div class="flex items-center justify-between">
+            <div class="flex items-center">
+                <h2 class="text-white font-semibold text-base tracking-wide">
+                    Projects
+                </h2>
+                <span class="ml-2 text-sm text-gray-600"
+                    >({{ totalProjects }})</span
+                >
+            </div>
+            <div>
+                <CreateProject />
+            </div>
         </div>
         <div class="mt-6">
             <div
@@ -35,11 +40,12 @@
 <script>
     import { mapState } from 'vuex';
     import ProjectCard from '../components/ProjectCard.vue';
+    import CreateProject from '../components/CreateProject.vue';
 
     export default {
         name: 'ProjectList',
 
-        components: { ProjectCard },
+        components: { ProjectCard, CreateProject },
 
         data() {
             return {};
