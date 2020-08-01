@@ -25,7 +25,16 @@ export const mutations = {
     },
 
     UPDATE_PROJECT(state, project) {
-        state.selectedProject = { ...project };
+        // state.selectedProject = { ...project };
+        state.selectedProject.title = project.title;
+        state.selectedProject.description = project.description;
+
+        state.projects.find((p) => {
+            if (p.id == project.id) {
+                p.title = project.title;
+                p.description = project.description;
+            }
+        });
     },
 
     DELETE_PROJECT(state, project) {
