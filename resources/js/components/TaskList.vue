@@ -5,7 +5,7 @@
             :key="task.id"
             :task="task"
             class="mt-2"
-            @edit="showEditTaskModal"
+            @edited="showEditTaskModal"
         />
 
         <modal name="modalEditTask" :height="200">

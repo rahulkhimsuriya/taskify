@@ -22,6 +22,10 @@ export const mutations = {
             }
         });
     },
+
+    DELETE_TASK(state, task) {
+        state.tasks.filter((t) => t.id !== task.id);
+    },
 };
 
 export const actions = {
@@ -62,6 +66,23 @@ export const actions = {
                 dispatch('notification/add', notification, { root: true });
 
                 return data.data;
+            });
+    },
+
+    deleteTask({ commit, dispatch, rootState }, task) {
+        const project = rootState.project.selectedProject;
+        return axios
+            .delete(`/api/projects/${project.id}/tasks/${task.id}`)
+            .then(() => {
+                commit('DELETE_TASK', task);
+
+                const notification = {
+                    type: 'success',
+                    message: 'Task deleted.',
+                };
+                dispatch('notification/add', notification, { root: true });
+
+                return task;
             });
     },
 };
