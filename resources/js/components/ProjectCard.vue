@@ -1,8 +1,5 @@
 <template>
-    <router-link
-        :to="link"
-        class="flex flex-col items-center justify-center text-center"
-    >
+    <router-link :to="link" class="flex flex-col items-center text-center">
         <div
             class="p-2 border-2 border-transparent rounded-lg shadow-inside"
             :class="project.id == selectedProject.id ? 'border-pink-400' : ''"
