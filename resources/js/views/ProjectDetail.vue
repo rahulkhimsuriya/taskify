@@ -8,12 +8,19 @@
         <div
             class="w-1/2 bg-white absolute right-0 inset-y-0 p-10 m-4 rounded shadow"
         >
-            <header>
-                <h2
-                    class="text-2xl font-semibold text-gray-800 tracking-wide leading-none"
-                >
-                    {{ project.title }}
-                </h2>
+            <header @mouseover="isActive = true" @mouseleave="isActive = false">
+                <div class="flex items-baseline">
+                    <h2
+                        class="text-2xl font-semibold text-gray-800 tracking-wide"
+                    >
+                        {{ project.title }}
+                    </h2>
+
+                    <div v-if="isActive">
+                        <EditProject :initProject="project" />
+                    </div>
+                </div>
+
                 <p
                     class="mt-4 text-sm text-gray-500 tracking-wide leading-tight"
                 >
@@ -40,7 +47,9 @@
 
 <script>
     import store from '../store';
+    import { mapState } from 'vuex';
     import CreateTask from '../components/CreateTask.vue';
+    import EditProject from '../components/EditProject.vue';
     import TaskList from '../components/TaskList.vue';
     import UserProjectsCard from '../components/UserProjectsCard.vue';
 
@@ -51,11 +60,11 @@
             id: { type: [Number, String], required: true },
         },
 
-        components: { CreateTask, TaskList, UserProjectsCard },
+        components: { CreateTask, EditProject, TaskList, UserProjectsCard },
 
         data() {
             return {
-                project: {},
+                isActive: false,
             };
         },
 
@@ -63,12 +72,12 @@
             user() {
                 return this.$store.getters['auth/getUser'];
             },
+
+            ...mapState('project', { project: 'selectedProject' }),
         },
 
         created() {
-            this.$store
-                .dispatch('project/fetchProject', this.id)
-                .then((project) => (this.project = project));
+            this.$store.dispatch('project/fetchProject', this.id);
         },
     };
 </script>

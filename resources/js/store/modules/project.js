@@ -17,6 +17,10 @@ export const mutations = {
     SET_SELECTED_PROJECT(state, selectedProject) {
         state.selectedProject = selectedProject;
     },
+
+    UPDATE_PROJECT(state, project) {
+        state.selectedProject = { ...project };
+    },
 };
 
 export const actions = {
@@ -35,6 +39,22 @@ export const actions = {
             dispatch('task/fetchTasks', data.data.tasks, { root: true });
             return data.data;
         });
+    },
+
+    updateProject({ commit, dispatch }, project) {
+        return axios
+            .patch(`/api/projects/${project.id}`, project)
+            .then(({ data }) => {
+                commit('UPDATE_PROJECT', data.data);
+
+                const notification = {
+                    type: 'success',
+                    message: 'Project updated.',
+                };
+                dispatch('notification/add', notification, { root: true });
+
+                return data.data;
+            });
     },
 };
 
