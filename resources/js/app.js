@@ -7,6 +7,8 @@ import axios from 'axios';
 import upperFirst from 'lodash/upperFirst';
 import camelCase from 'lodash/camelCase';
 
+import 'nprogress/nprogress.css';
+
 import VModal from 'vue-js-modal';
 Vue.use(VModal);
 

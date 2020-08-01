@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
+import NProgress from 'nprogress';
 import Home from '../views/Home.vue';
 import Login from '../views/Auth/Login.vue';
 import Register from '../views/Auth/Register.vue';
@@ -45,12 +46,18 @@ const router = new VueRouter({
 });
 
 router.beforeEach((to, from, next) => {
+    NProgress.start();
+
     const loggedIn = localStorage.getItem('user');
 
     if (to.matched.some((record) => record.meta.requiresAuth) && !loggedIn) {
         next('/');
     }
     next();
+});
+
+router.afterEach(() => {
+    NProgress.done();
 });
 
 export default router;
