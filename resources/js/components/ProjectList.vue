@@ -10,15 +10,23 @@
         </div>
         <div class="mt-6">
             <div
-                class="flex items-center flex-wrap overflow-auto"
+                class="flex flex-wrap overflow-auto"
                 style="height: 300px;"
+                :class="totalProjects > 0 ? 'items-cemter' : ''"
             >
-                <ProjectCard
-                    class="w-1/3 mt-8"
-                    v-for="project in projects"
-                    :key="project.id"
-                    :project="project"
-                />
+                <template v-if="totalProjects">
+                    <ProjectCard
+                        class="w-1/3 mt-8"
+                        v-for="project in projects"
+                        :key="project.id"
+                        :project="project"
+                    />
+                </template>
+                <template v-else>
+                    <p class="text-sm text-gray-600 font-base">
+                        You don't have any project yet.
+                    </p>
+                </template>
             </div>
         </div>
     </div>

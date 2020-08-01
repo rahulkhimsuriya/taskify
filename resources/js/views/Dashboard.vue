@@ -2,24 +2,7 @@
     <div class="flex">
         <div class="w-1/2 flex items-center justify-center">
             <div class="max-w-sm">
-                <header>
-                    <h1
-                        class="text-3xl text-semibold text-white tracking-wide leading-none"
-                    >
-                        Hi Rahul
-                    </h1>
-                    <p
-                        class="mt-2 text-sm text-gray-600 tracking-wide leading-none"
-                    >
-                        Welcome back to the worksapce,we missed You.!
-                    </p>
-
-                    <BaseSearchInput class="mt-6" />
-                </header>
-
-                <div class="mt-12">
-                    <ProjectList />
-                </div>
+                <UserProjectsCard />
             </div>
         </div>
         <div
@@ -34,11 +17,12 @@
 
 <script>
     import ProjectList from '../components/ProjectList.vue';
+    import UserProjectsCard from '../components/UserProjectsCard.vue';
 
     export default {
         name: 'Dashboard',
 
-        components: { ProjectList },
+        components: { ProjectList, UserProjectsCard },
 
         data() {
             return {};
