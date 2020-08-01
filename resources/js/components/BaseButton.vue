@@ -48,6 +48,14 @@
                     );
                 }
 
+                if (this.type == 'success') {
+                    defaults.push(
+                        'text-white',
+                        'bg-green-600',
+                        'hover:bg-green-500'
+                    );
+                }
+
                 if (this.type == 'info') {
                     defaults.push(
                         'text-white',

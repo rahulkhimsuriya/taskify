@@ -1,20 +1,45 @@
 <template>
-    <div class="flex">
-        <button @click="toggle" class="focus:outline-none">
-            <svg
-                class="h-6 w-6 border focus:border-gray-800 rounded-full"
-                :class="isCompleted ? 'text-teal-600' : 'text-gray-400'"
-                fill="currentColor"
-                viewBox="0 0 20 20"
+    <div
+        class="flex items-center justify-between"
+        @mouseover="isActive = true"
+        @mouseleave="isActive = false"
+    >
+        <div class="flex">
+            <button @click="toggle" class="focus:outline-none">
+                <svg
+                    class="h-6 w-6 border focus:border-gray-800 rounded-full"
+                    :class="isCompleted ? 'text-teal-600' : 'text-gray-400'"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                >
+                    <path
+                        fill-rule="evenodd"
+                        d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                        clip-rule="evenodd"
+                    />
+                </svg>
+            </button>
+            <p class="ml-2 text-sm font-normal text-gray-800">
+                {{ task.body }}
+            </p>
+        </div>
+        <div v-if="isActive">
+            <button
+                class="text-orange-500 hover:text-orange-600 focus:outline-none focus:shadow-outline"
+                @click="$emit('edit', task)"
             >
-                <path
-                    fill-rule="evenodd"
-                    d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                    clip-rule="evenodd"
-                />
-            </svg>
-        </button>
-        <p class="ml-2 text-sm font-normal text-gray-800">{{ task.body }}</p>
+                <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 20 20">
+                    <path
+                        d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z"
+                    ></path>
+                    <path
+                        fill-rule="evenodd"
+                        d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z"
+                        clip-rule="evenodd"
+                    ></path>
+                </svg>
+            </button>
+        </div>
     </div>
 </template>
 
@@ -29,6 +54,7 @@
         data() {
             return {
                 isCompleted: false,
+                isActive: false,
             };
         },
 

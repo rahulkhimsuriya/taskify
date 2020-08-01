@@ -45,12 +45,7 @@
                 </h3>
 
                 <div class="mt-6">
-                    <Task
-                        v-for="task in tasks"
-                        :key="task.id"
-                        :task="task"
-                        class="mt-2"
-                    />
+                    <TaskList />
                 </div>
             </div>
 
@@ -63,7 +58,7 @@
     import store from '../store';
     import CreateTask from '../components/CreateTask.vue';
     import ProjectList from '../components/ProjectList.vue';
-    import Task from '../components/Task.vue';
+    import TaskList from '../components/TaskList.vue';
 
     export default {
         name: 'ProjectDetail',
@@ -72,7 +67,7 @@
             id: { type: [Number, String], required: true },
         },
 
-        components: { CreateTask, ProjectList, Task },
+        components: { CreateTask, ProjectList, TaskList },
 
         data() {
             return {
@@ -85,10 +80,6 @@
                 return this.$store.getters['auth/getUser'];
             },
 
-            tasks() {
-                return this.$store.getters['task/getTasks'];
-            },
-
             greetingWithName() {
                 return `Hi ${this.user.name}`;
             },
@@ -98,12 +89,6 @@
             this.$store
                 .dispatch('project/fetchProject', this.id)
                 .then((project) => (this.project = project));
-        },
-
-        methods: {
-            showCreateTaskModal() {
-                console.log('SHOW MODAL');
-            },
         },
     };
 </script>

@@ -14,6 +14,14 @@ export const mutations = {
     CREATE_TASK(state, task) {
         state.tasks.push(task);
     },
+
+    UPDATE_TASK(state, task) {
+        state.tasks.find((t) => {
+            if (t.id === task.id) {
+                t = task;
+            }
+        });
+    },
 };
 
 export const actions = {
@@ -33,6 +41,23 @@ export const actions = {
                 const notification = {
                     type: 'success',
                     message: 'Task created.',
+                };
+                dispatch('notification/add', notification, { root: true });
+
+                return data.data;
+            });
+    },
+
+    updateTask({ commit, dispatch, rootState }, task) {
+        const project = rootState.project.selectedProject;
+        return axios
+            .patch(`/api/projects/${project.id}/tasks/${task.id}`, task)
+            .then(({ data }) => {
+                commit('UPDATE_TASK', data.data);
+
+                const notification = {
+                    type: 'success',
+                    message: 'Task updated.',
                 };
                 dispatch('notification/add', notification, { root: true });
 
