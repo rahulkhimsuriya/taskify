@@ -6,7 +6,7 @@
                 v-text="greetingWithName"
             ></h1>
             <p class="mt-2 text-sm text-gray-600 tracking-wide leading-none">
-                Welcome back to the worksapce,we missed You.!
+                Welcome back to the worksapce, we missed You.!
             </p>
 
             <BaseSearchInput class="mt-6" />
@@ -38,10 +38,9 @@
             },
 
             greetingWithName() {
-                name =
-                    this.user.name.charAt(0).toUpperCase() +
-                    this.user.name.slice(1);
-                return `Hi ${name}`;
+                let name = this.user.name.split(' ')[0];
+                let firstname = name.charAt(0).toUpperCase() + name.slice(1);
+                return `Hi ${firstname}`;
             },
         },
     };
