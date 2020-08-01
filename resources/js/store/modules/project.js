@@ -21,6 +21,14 @@ export const mutations = {
     UPDATE_PROJECT(state, project) {
         state.selectedProject = { ...project };
     },
+
+    DELETE_PROJECT(state, project) {
+        state.totalProjects -= 1;
+
+        state.projects.splice(project, 1);
+
+        console.log(state.projects);
+    },
 };
 
 export const actions = {
@@ -55,6 +63,20 @@ export const actions = {
 
                 return data.data;
             });
+    },
+
+    deleteProject({ commit, dispatch }, project) {
+        return axios.delete(`/api/projects/${project.id}`).then(() => {
+            commit('DELETE_PROJECT', project);
+
+            const notification = {
+                type: 'success',
+                message: 'Project deleted.',
+            };
+            dispatch('notification/add', notification, { root: true });
+
+            return null;
+        });
     },
 };
 

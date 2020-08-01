@@ -33,7 +33,7 @@
 </template>
 
 <script>
-    import { mapGetters } from 'vuex';
+    import { mapState } from 'vuex';
     import ProjectCard from '../components/ProjectCard.vue';
 
     export default {
@@ -45,14 +45,14 @@
             return {};
         },
 
-        created() {
+        mounted() {
             this.$store.dispatch('project/fetchProjects');
         },
 
         computed: {
-            ...mapGetters('project', {
-                projects: 'getProjects',
-                totalProjects: 'getTotalProjects',
+            ...mapState('project', {
+                projects: 'projects',
+                totalProjects: 'totalProjects',
             }),
         },
     };
