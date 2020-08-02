@@ -54,7 +54,10 @@ export const actions = {
         });
     },
 
-    fetchProject({ commit, dispatch }, projectId) {
+    fetchProject({ commit, dispatch, state }, projectId) {
+        if (state.selectedProject.id == projectId) {
+            return state.selectedProject;
+        }
         return axios.get(`/api/projects/${projectId}`).then(({ data }) => {
             commit('SET_SELECTED_PROJECT', data.data);
             dispatch('task/fetchTasks', data.data.tasks, { root: true });

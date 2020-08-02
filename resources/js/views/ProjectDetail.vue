@@ -80,24 +80,31 @@
             ...mapState('project', { project: 'selectedProject' }),
         },
 
-        created() {
-            store.dispatch('project/fetchProject', this.id);
+        beforeRouteEnter(to, from, next) {
+            NProgress.start();
+
+            setTimeout(function() {
+                store
+                    .dispatch('project/fetchProject', to.params.id)
+                    .then(() => {
+                        NProgress.done();
+                        next();
+                    })
+                    .catch((error) => {
+                        console.log(error.response);
+
+                        const notification = {
+                            type: 'error',
+                            message: error.response.data.message,
+                        };
+                        store.dispatch('notification/add', notification, {
+                            root: true,
+                        });
+
+                        NProgress.done();
+                    });
+            }, 100);
         },
-
-        // beforeRouteEnter(to, from, next) {
-        //     NProgress.start();
-
-        //     store
-        //         .dispatch('project/fetchProject', to.params.id)
-        //         .then(() => {
-        //             NProgress.done();
-        //             next();
-        //         })
-        //         .catch((error) => {
-        //             console.log(error.response);
-        //             NProgress.done();
-        //         });
-        // },
 
         beforeRouteUpdate(to, from, next) {
             NProgress.start();
