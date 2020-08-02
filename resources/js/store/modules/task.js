@@ -26,6 +26,14 @@ export const mutations = {
     DELETE_TASK(state, task) {
         state.tasks.filter((t) => t.id !== task.id);
     },
+
+    TOGGLE_TASK_COMPLETION(state, task) {
+        state.tasks.find((t) => {
+            if (t.id == task.data.id) {
+                t = task.data;
+            }
+        });
+    },
 };
 
 export const actions = {
@@ -83,6 +91,23 @@ export const actions = {
                 dispatch('notification/add', notification, { root: true });
 
                 return task;
+            });
+    },
+
+    toggle({ commit, dispatch }, task) {
+        return axios
+            .patch(`/api/tasks/${task.id}/complete`)
+            .then(({ data }) => {
+                commit('TOGGLE_TASK_COMPLETION', data);
+
+                const notification = {
+                    type: 'success',
+                    message: data.message,
+                };
+
+                dispatch('notification/add', notification, { root: true });
+
+                return data;
             });
     },
 };

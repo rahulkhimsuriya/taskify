@@ -2,11 +2,12 @@
     <div>
         <h3
             class="text-xl font-medium text-gray-800 tracking-wide leading-none"
+            v-if="tasks.length > 0"
         >
             Tasks
         </h3>
 
-        <div class="mt-6">
+        <div class="mt-6" v-if="tasks.length > 0">
             <Task
                 v-for="task in tasks"
                 :key="task.id"
@@ -45,6 +46,20 @@
                 </div>
             </modal>
         </div>
+
+        <div class="flex flex-col items-center justify-center" v-else>
+            <img
+                src="/image/design_sprint.svg"
+                class="h-64 w-64 opacity-75"
+                alt="Design Sprint"
+            />
+
+            <h1
+                class="text-3xl font-light text-gray-500 leading-none tracking-wide"
+            >
+                You don't have any task yet.
+            </h1>
+        </div>
     </div>
 </template>
 
@@ -69,7 +84,7 @@
 
         computed: {
             tasks() {
-                return store.state.task.tasks;
+                return this.$store.state.task.tasks;
             },
         },
 
