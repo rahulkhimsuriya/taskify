@@ -38,6 +38,8 @@
 </template>
 
 <script>
+    import store from '../store';
+    import NProgress from 'nprogress';
     import { mapState } from 'vuex';
     import ProjectCard from '../components/ProjectCard.vue';
     import CreateProject from '../components/CreateProject.vue';
@@ -51,15 +53,16 @@
             return {};
         },
 
-        mounted() {
-            this.$store.dispatch('project/fetchProjects');
+        created() {
+            NProgress.start();
+
+            store.dispatch('project/fetchProjects').then(() => {
+                NProgress.done();
+            });
         },
 
         computed: {
-            ...mapState('project', {
-                projects: 'projects',
-                totalProjects: 'totalProjects',
-            }),
+            ...mapState('project', ['projects', 'totalProjects']),
         },
     };
 </script>

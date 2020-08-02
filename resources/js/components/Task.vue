@@ -59,6 +59,7 @@
 
 <script>
     import axios from 'axios';
+    import NProgress from 'nprogress';
 
     export default {
         name: 'Task',
@@ -79,6 +80,8 @@
 
         methods: {
             toggle() {
+                NProgress.start();
+
                 axios
                     .patch(`/api/tasks/${this.task.id}/complete`)
                     .then(({ data }) => {
@@ -92,12 +95,17 @@
                         this.$store.dispatch('notification/add', notification, {
                             root: true,
                         });
+
+                        NProgress.done();
                     });
             },
 
             remove() {
+                NProgress.start();
+
                 this.$store.dispatch('task/deleteTask', this.task).then(() => {
                     this.isVisible = false;
+                    NProgress.done();
                 });
             },
         },

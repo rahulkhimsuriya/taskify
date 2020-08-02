@@ -63,6 +63,8 @@
 </template>
 
 <script>
+    import NProgress from 'nprogress';
+
     export default {
         name: 'EditProject',
 
@@ -87,13 +89,19 @@
 
         methods: {
             update() {
+                NProgress.start();
+
                 this.$store
                     .dispatch('project/updateProject', this.project)
                     .then((project) => {
                         this.$modal.hide('modalEditProject');
+
+                        NProgress.done();
                     })
                     .catch((error) => {
                         this.errors = error.response.data.errors;
+
+                        NProgress.done();
                     });
             },
         },

@@ -52,6 +52,8 @@
 </template>
 
 <script>
+    import NProgress from 'nprogress';
+
     export default {
         name: 'Register',
 
@@ -64,13 +66,19 @@
 
         methods: {
             register() {
+                NProgress.start();
+
                 this.$store
                     .dispatch('auth/register', this.user)
                     .then(() => {
                         this.$router.push({ name: 'dashboard' });
+
+                        NProgress.done();
                     })
                     .catch((error) => {
                         this.errors = error.response.data.errors;
+
+                        NProgress.done();
                     });
             },
         },

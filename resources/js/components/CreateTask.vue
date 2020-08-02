@@ -42,7 +42,8 @@
 </template>
 
 <script>
-    import axios from 'axios';
+    import store from '../store';
+    import NProgress from 'nprogress';
 
     export default {
         name: 'CreateTask',
@@ -62,14 +63,19 @@
 
         methods: {
             createTask() {
-                this.$store
+                NProgress.start();
+                store
                     .dispatch('task/createTask', this.task)
                     .then((task) => {
                         this.$modal.hide('modalCreateTask');
                         this.task = '';
+
+                        NProgress.done();
                     })
                     .catch((error) => {
                         this.error = error.response.data.errors.body[0];
+
+                        NProgress.done();
                     });
             },
         },

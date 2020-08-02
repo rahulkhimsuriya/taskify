@@ -54,6 +54,9 @@
 </template>
 
 <script>
+    import store from '../store';
+    import NProgress from 'nprogress';
+
     export default {
         name: 'CreateProject',
 
@@ -66,7 +69,9 @@
 
         methods: {
             create() {
-                this.$store
+                NProgress.start();
+
+                store
                     .dispatch('project/createProject', this.project)
                     .then((project) => {
                         this.$modal.hide('modalCreateProject');
@@ -75,9 +80,13 @@
                             name: 'project-detail',
                             params: { id: project.id },
                         });
+
+                        NProgress.done();
                     })
                     .catch((error) => {
                         this.errors = error.response.data.errors;
+
+                        NProgress.done();
                     });
             },
         },

@@ -30,6 +30,8 @@
 </template>
 
 <script>
+    import NProgress from 'nprogress';
+
     export default {
         name: 'Login',
 
@@ -42,17 +44,25 @@
 
         methods: {
             login() {
+                NProgress.start();
+
                 this.$store
                     .dispatch('auth/login', this.user)
                     .then(() => {
                         this.$router.push({ name: 'dashboard' });
+
+                        NProgress.done();
                     })
                     .catch((error) => {
                         console.log(error.response.data);
                         if (error.response.data.errors) {
                             this.error = 'Please provide email and password.';
+
+                            NProgress.done();
                         } else {
                             this.error = error.response.data.message;
+
+                            NProgress.done();
                         }
                     });
             },

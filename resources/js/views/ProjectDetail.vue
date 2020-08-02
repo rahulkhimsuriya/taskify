@@ -43,15 +43,7 @@
             </header>
 
             <div class="my-10">
-                <h3
-                    class="text-xl font-medium text-gray-800 tracking-wide leading-none"
-                >
-                    Tasks
-                </h3>
-
-                <div class="mt-6">
-                    <TaskList />
-                </div>
+                <TaskList />
             </div>
 
             <CreateTask :projectId="project.id" />
@@ -61,6 +53,7 @@
 
 <script>
     import store from '../store';
+    import NProgress from 'nprogress';
     import { mapState } from 'vuex';
     import CreateTask from '../components/CreateTask.vue';
     import EditProject from '../components/EditProject.vue';
@@ -83,22 +76,45 @@
         },
 
         computed: {
-            user() {
-                return this.$store.getters['auth/getUser'];
-            },
-
+            ...mapState('auth', ['user']),
             ...mapState('project', { project: 'selectedProject' }),
         },
 
         created() {
-            this.$store.dispatch('project/fetchProject', this.id);
+            store.dispatch('project/fetchProject', this.id);
+        },
+
+        // beforeRouteEnter(to, from, next) {
+        //     NProgress.start();
+
+        //     store
+        //         .dispatch('project/fetchProject', to.params.id)
+        //         .then(() => {
+        //             NProgress.done();
+        //             next();
+        //         })
+        //         .catch((error) => {
+        //             console.log(error.response);
+        //             NProgress.done();
+        //         });
+        // },
+
+        beforeRouteUpdate(to, from, next) {
+            NProgress.start();
+
+            store.dispatch('project/fetchProject', to.params.id).then(() => {
+                NProgress.done();
+                next();
+            });
         },
 
         methods: {
             remove() {
-                this.$store
+                NProgress.start();
+                store
                     .dispatch('project/deleteProject', this.project)
                     .then(() => {
+                        NProgress.done();
                         this.$router.push({ name: 'dashboard' });
                     });
             },

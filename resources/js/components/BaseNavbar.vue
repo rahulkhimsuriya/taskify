@@ -58,6 +58,7 @@
 
 <script>
     import { mapGetters } from 'vuex';
+    import NProgress from 'nprogress';
 
     export default {
         name: 'BaseNavbar',
@@ -74,8 +75,12 @@
 
         methods: {
             logout() {
+                NProgress.start();
+
                 this.$store.dispatch('auth/logout').then(() => {
                     this.$router.push({ name: 'home' });
+
+                    NProgress.done();
                 });
             },
         },
