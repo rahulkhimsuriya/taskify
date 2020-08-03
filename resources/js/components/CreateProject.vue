@@ -1,9 +1,6 @@
 <template>
     <div>
-        <BaseButton
-            style="color:#eee;"
-            @click="$modal.show('modalCreateProject')"
-        >
+        <BaseButton type="secondary" @click="$modal.show('modalCreateProject')">
             New Project
         </BaseButton>
 

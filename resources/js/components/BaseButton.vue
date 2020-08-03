@@ -43,7 +43,7 @@
                 if (this.type == 'default') {
                     defaults.push(
                         'text-gray-800',
-                        'hover:bg-gray-600',
+                        'hover:bg-gray-800',
                         'hover:text-white'
                     );
                 }
@@ -61,6 +61,15 @@
                         'text-white',
                         'bg-purple-600',
                         'hover:bg-purple-500'
+                    );
+                }
+
+                if (this.type == 'secondary') {
+                    defaults.push(
+                        'bg-gray-800',
+                        'text-gray-300',
+                        'hover:bg-gray-300',
+                        'hover:text-gray-800'
                     );
                 }
 
