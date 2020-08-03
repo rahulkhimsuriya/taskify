@@ -6,6 +6,7 @@ import Login from '../views/Auth/Login.vue';
 import Register from '../views/Auth/Register.vue';
 import Dashboard from '../views/Dashboard.vue';
 import ProjectDetail from '../views/ProjectDetail.vue';
+import NotFound from '../views/NotFound.vue';
 
 Vue.use(VueRouter);
 
@@ -37,6 +38,15 @@ const routes = [
         component: ProjectDetail,
         props: true,
         meta: { requiresAuth: true },
+    },
+    {
+        path: '/404',
+        name: '404',
+        component: NotFound,
+    },
+    {
+        path: '*',
+        redirect: { name: '404' },
     },
 ];
 

@@ -1,8 +1,5 @@
 <template>
-    <div
-        class="bg-white min-h-screen relative"
-        :class="{ 'bg-gray-800': isLogedIn }"
-    >
+    <div :class="isLogedIn ? 'bg-gray-800 min-h-screen relative' : 'bg-white'">
         <BaseNavbar />
         <NotificationContainer />
         <!-- component matched by the route will render here -->
