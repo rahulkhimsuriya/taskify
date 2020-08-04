@@ -1,7 +1,7 @@
 <template>
     <div class="flex">
         <div class="w-1/2 flex items-center justify-center">
-            <div class="max-w-sm">
+            <div class="w-3/6">
                 <UserProjectsCard />
             </div>
         </div>

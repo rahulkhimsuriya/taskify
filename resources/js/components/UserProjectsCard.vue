@@ -8,11 +8,9 @@
             <p class="mt-2 text-sm text-gray-600 tracking-wide leading-none">
                 Welcome back to the worksapce, we missed You.!
             </p>
-
-            <BaseSearchInput class="mt-6" />
         </header>
 
-        <div class="mt-12">
+        <div class="mt-8">
             <ProjectList />
         </div>
     </div>

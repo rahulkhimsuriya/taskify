@@ -15,17 +15,34 @@
         </span>
         <input
             class="pl-10 pr-4 py-3 w-full bg-gray-700 text-sm font-normal tracking-wide border border-transparent text-md text-gray-100 focus:outline-none focus:shadow-xl focus:border-gray-600 transition duration-300 ease-linear rounded-full"
-            placeholder="Search Task or Project..."
+            :value="value"
+            @input="updateValue"
+            v-bind="$attrs"
+            placeholder="Search Project..."
         />
     </div>
 </template>
 
 <script>
     export default {
+        inheritAttrs: false,
+
         name: 'BaseSearchInput',
+
+        props: {
+            value: {
+                type: [String, Number],
+            },
+        },
 
         data() {
             return {};
+        },
+
+        methods: {
+            updateValue(event) {
+                this.$emit('input', event.target.value);
+            },
         },
     };
 </script>
