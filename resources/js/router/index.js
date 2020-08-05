@@ -15,16 +15,19 @@ const routes = [
         path: '/',
         name: 'home',
         component: Home,
+        meta: { requiresVisitor: true },
     },
     {
         path: '/login',
         name: 'login',
         component: Login,
+        meta: { requiresVisitor: true },
     },
     {
         path: '/register',
         name: 'register',
         component: Register,
+        meta: { requiresVisitor: true },
     },
     {
         path: '/projects',
@@ -60,7 +63,12 @@ router.beforeEach((to, from, next) => {
 
     const loggedIn = localStorage.getItem('user');
 
-    if (to.matched.some((record) => record.meta.requiresAuth) && !loggedIn) {
+    if (to.matched.some((record) => record.meta.requiresVisitor) && loggedIn) {
+        next({ name: 'dashboard' });
+    } else if (
+        to.matched.some((record) => record.meta.requiresAuth) &&
+        !loggedIn
+    ) {
         next('/');
     }
     next();
