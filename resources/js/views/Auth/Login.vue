@@ -9,13 +9,19 @@
         </div>
 
         <form @submit.prevent="login" class="mt-2">
-            <BaseInput label="Email" type="email" v-model="user.email" />
+            <BaseInput
+                label="Email"
+                type="email"
+                v-model="user.email"
+                placeholder="example@email.com"
+            />
 
             <BaseInput
                 label="Password"
                 type="password"
                 class="mt-2"
                 v-model="user.password"
+                placeholder="Password"
             />
 
             <BaseButton class="mt-4">Login</BaseButton>
