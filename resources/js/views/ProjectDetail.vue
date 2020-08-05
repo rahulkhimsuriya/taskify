@@ -1,12 +1,12 @@
 <template>
-    <div class="flex">
-        <div class="w-1/2 flex items-center justify-center">
-            <div class="max-w-sm">
+    <div class="lg:flex">
+        <div class="lg:w-1/2 flex items-center justify-center">
+            <div class="w-4/6 lg:w-3/6 flex-shrink-0">
                 <UserProjectsCard />
             </div>
         </div>
         <div
-            class="w-1/2 bg-white absolute right-0 inset-y-0 p-10 m-4 rounded shadow"
+            class="lg:w-1/2 bg-white mx-2 mt-8 lg:absolute lg:right-0 lg:inset-y-0 p-10 lg:m-4 rounded shadow"
         >
             <header @mouseover="isActive = true" @mouseleave="isActive = false">
                 <div class="flex items-baseline">

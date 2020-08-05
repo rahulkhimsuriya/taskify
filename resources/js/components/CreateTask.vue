@@ -3,7 +3,7 @@
         <BaseButton
             type="info"
             @click="$modal.show('modalCreateTask')"
-            class="py-3 fixed bottom-0 right-0 mr-10 mb-10 rounded-lg shadow-lg hover-shadow"
+            class="border-transparent py-3 fixed bottom-0 right-0 mr-4 mb-4 md:mr-10 md:mb-10 rounded-lg shadow-lg hover-shadow"
         >
             <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 20 20">
                 <path

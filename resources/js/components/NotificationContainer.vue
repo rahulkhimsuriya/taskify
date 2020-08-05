@@ -1,5 +1,5 @@
 <template>
-    <div class="absolute top-0 right-0 mr-10 mt-10 z-40">
+    <div class="fixed top-0 right-0 m-4 md:m-6 lg:m-8 z-40">
         <BaseNotification
             v-for="notification in notifications"
             :key="notification.id"

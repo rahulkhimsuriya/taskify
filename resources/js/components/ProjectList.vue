@@ -20,8 +20,8 @@
             </div>
             <div class="mt-6">
                 <div
-                    class="flex flex-wrap overflow-auto"
-                    style="height: 300px;"
+                    class="pb-4 lg:pb-0 flex lg:flex-wrap overflow-x-auto lg:overflow-auto"
+                    style="max-height: 300px;"
                     :class="totalProjects > 0 ? 'items-cemter' : ''"
                 >
                     <template v-if="totalProjects">

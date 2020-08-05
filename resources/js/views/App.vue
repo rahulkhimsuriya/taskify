@@ -1,9 +1,16 @@
 <template>
-    <div :class="isLogedIn ? 'bg-gray-800 min-h-screen relative' : 'bg-white'">
-        <BaseNavbar />
-        <NotificationContainer />
-        <!-- component matched by the route will render here -->
-        <router-view :key="$route.fullPath"></router-view>
+    <div
+        id="app"
+        :class="
+            isLogedIn ? 'bg-gray-800 lg:min-h-screen lg:relative' : 'bg-white'
+        "
+    >
+        <div>
+            <BaseNavbar />
+            <NotificationContainer />
+            <!-- component matched by the route will render here -->
+            <router-view :key="$route.fullPath"></router-view>
+        </div>
     </div>
 </template>
 
