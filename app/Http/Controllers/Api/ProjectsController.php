@@ -16,6 +16,9 @@ class ProjectsController extends Controller
     {
         $projects = Auth::user()->projects;
 
+        // $projects->load('color');
+        // return $projects;
+
         return response()->json(['data' => ProjectResource::collection($projects)], 200);
     }
 

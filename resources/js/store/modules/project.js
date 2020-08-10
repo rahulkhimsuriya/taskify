@@ -6,6 +6,7 @@ export const state = {
     projects: null,
     totalProjects: 0,
     selectedProject: {},
+    colors: null,
 };
 
 export const mutations = {
@@ -25,12 +26,11 @@ export const mutations = {
     },
 
     UPDATE_PROJECT(state, project) {
-        // state.selectedProject = { ...project };
-        state.selectedProject.title = project.title;
-        state.selectedProject.description = project.description;
+        state.selectedProject = project;
 
         state.projects.find((p) => {
             if (p.id == project.id) {
+                p.color = project.color;
                 p.title = project.title;
                 p.description = project.description;
             }
@@ -42,6 +42,10 @@ export const mutations = {
 
         state.projects.splice(project, 1);
     },
+
+    SET_COLORS(state, colors) {
+        state.colors = colors;
+    },
 };
 
 export const actions = {
@@ -51,6 +55,15 @@ export const actions = {
         }
         return axios.get('/api/projects').then(({ data }) => {
             commit('SET_PROJECTS_DATA', data.data);
+        });
+    },
+
+    fetchColors({ commit, state }) {
+        if (state.colors) {
+            return state.colors;
+        }
+        return axios.get('/api/colors').then(({ data }) => {
+            commit('SET_COLORS', data);
         });
     },
 

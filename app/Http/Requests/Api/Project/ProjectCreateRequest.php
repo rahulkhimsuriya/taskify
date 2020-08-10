@@ -24,6 +24,7 @@ class ProjectCreateRequest extends FormRequest
     public function rules()
     {
         return [
+            'color_id' => ['required', 'exists:colors,id'],
             'title' => ['required', 'string', 'min:3', 'max:20'],
             'description' => ['required', 'string', 'max:255']
         ];

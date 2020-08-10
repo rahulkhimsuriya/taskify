@@ -17877,6 +17877,32 @@ video {
   transition-delay: 1000ms;
 }
 
+/* width */
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+/* Track */
+
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px #4a5568;
+  border-radius: 40px;
+}
+
+/* Handle */
+
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 40px;
+}
+
+/* Handle on hover */
+
+::-webkit-scrollbar-thumb:hover {
+  background: #666;
+}
+
 @media (min-width: 640px) {
   .sm\:container {
     width: 100%;

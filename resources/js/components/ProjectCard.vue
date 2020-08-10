@@ -2,10 +2,11 @@
     <router-link :to="link" class="flex flex-col items-center text-center">
         <div
             class="p-2 border-2 border-transparent rounded-lg shadow-inside"
-            :class="project.id == selectedProject.id ? 'border-pink-400' : ''"
+            :style="borderStyles"
         >
             <div
-                class="h-20 w-20 bg-pink-500 flex items-center justify-center rounded-lg"
+                class="h-20 w-20 flex items-center justify-center rounded-lg"
+                :style="backgroundStyles"
             >
                 <span
                     class="text-white text-base font-semibold tracking-wider"
@@ -36,6 +37,21 @@
                 return {
                     name: 'project-detail',
                     params: { id: this.project.id },
+                };
+            },
+
+            borderStyles() {
+                return {
+                    borderColor:
+                        this.project.id === this.selectedProject.id
+                            ? this.selectedProject.color.color
+                            : '',
+                };
+            },
+
+            backgroundStyles() {
+                return {
+                    backgroundColor: this.project.color.color,
                 };
             },
 

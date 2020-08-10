@@ -29,9 +29,16 @@ class Project extends Model
         'owner_id' => 'integer',
     ];
 
+    protected $with = ['color'];
+
     public function owner()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function color()
+    {
+        return $this->belongsTo(Color::class);
     }
 
     public function tasks()

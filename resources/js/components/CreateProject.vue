@@ -4,8 +4,8 @@
             New Project
         </BaseButton>
 
-        <modal name="modalCreateProject">
-            <div class="max-w-md mx-auto">
+        <modal name="modalCreateProject" height="auto">
+            <div class="pt-4 pb-6 max-w-md mx-auto">
                 <h1
                     class="mt-2 text-xl text-gray-600 font-medium tracking-wide text-center"
                 >
@@ -27,6 +27,20 @@
                         {{ errors.title[0] }}
                     </p>
 
+                    <ColorRadioButtons
+                        label="Color"
+                        class="mt-4"
+                        :colors="colors"
+                        v-model="project.color_id"
+                    />
+
+                    <p
+                        class="text-sm font-semibold text-red-600"
+                        v-if="errors.color_id"
+                    >
+                        {{ errors.color_id[0] }}
+                    </p>
+
                     <BaseTextarea
                         label="Description"
                         type="text"
@@ -34,6 +48,7 @@
                         placeholder="Description..."
                         v-model="project.description"
                     />
+
                     <p
                         class="text-sm font-semibold text-red-600"
                         v-if="errors.description"
@@ -51,11 +66,15 @@
 </template>
 
 <script>
-    import store from '../store';
     import NProgress from 'nprogress';
+    import ColorRadioButtons from './ColorRadioButtons';
 
     export default {
         name: 'CreateProject',
+
+        components: {
+            ColorRadioButtons,
+        },
 
         data() {
             return {
@@ -64,11 +83,21 @@
             };
         },
 
+        created() {
+            this.$store.dispatch('project/fetchColors');
+        },
+
+        computed: {
+            colors() {
+                return this.$store.state.project.colors;
+            },
+        },
+
         methods: {
             create() {
                 NProgress.start();
 
-                store
+                this.$store
                     .dispatch('project/createProject', this.project)
                     .then((project) => {
                         this.$modal.hide('modalCreateProject');

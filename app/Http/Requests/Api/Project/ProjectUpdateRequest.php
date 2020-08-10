@@ -24,6 +24,7 @@ class ProjectUpdateRequest extends FormRequest
     public function rules()
     {
         return [
+            'color_id' => ['required', 'exists:colors,id'],
             'title' => ['required', 'min:3', 'max:20'],
             'description' => ['required', 'min:3', 'max:255']
         ];

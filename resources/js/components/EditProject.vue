@@ -16,8 +16,8 @@
             </svg>
         </button>
 
-        <modal name="modalEditProject">
-            <div class="max-w-md mx-auto">
+        <modal name="modalEditProject" height="auto">
+            <div class="p-4 max-w-md mx-auto">
                 <h1
                     class="mt-2 text-xl text-gray-600 font-medium tracking-wide text-center"
                 >
@@ -37,6 +37,20 @@
                         v-if="errors.title"
                     >
                         {{ errors.title[0] }}
+                    </p>
+
+                    <ColorRadioButtons
+                        label="Color"
+                        class="mt-4"
+                        :colors="colors"
+                        v-model="project.color_id"
+                    />
+
+                    <p
+                        class="text-sm font-semibold text-red-600"
+                        v-if="errors.color_id"
+                    >
+                        {{ errors.color_id[0] }}
                     </p>
 
                     <BaseTextarea
@@ -64,9 +78,14 @@
 
 <script>
     import NProgress from 'nprogress';
+    import ColorRadioButtons from './ColorRadioButtons';
 
     export default {
         name: 'EditProject',
+
+        components: {
+            ColorRadioButtons,
+        },
 
         props: {
             initProject: {
@@ -81,10 +100,17 @@
                     id: this.initProject.id,
                     title: this.initProject.title,
                     description: this.initProject.description,
+                    color_id: this.initProject.color_id,
                 },
+
+                colors: this.$store.state.project.colors,
 
                 errors: {},
             };
+        },
+
+        created() {
+            this.$store.dispatch('project/fetchColors');
         },
 
         methods: {
