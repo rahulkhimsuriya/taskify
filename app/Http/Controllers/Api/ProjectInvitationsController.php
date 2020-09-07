@@ -16,7 +16,11 @@ class ProjectInvitationsController extends Controller
         $user = User::whereEmail($request->email)->first();
 
         if ($project->members->contains($user)) {
-            return response()->json(['message' => "User already member of the project."], 400);
+            return response()->json(['errors' => ['email' => ["User already member of the project."]]], 400);
+        }
+
+        if ($project->owner->is($user)) {
+            return response()->json(['errors' => ['email' => ["You can not invite yourself."]]], 400);
         }
 
         $project->invite($user);

@@ -9,29 +9,37 @@
             class="lg:w-1/2 bg-white mx-2 mt-8 lg:absolute lg:right-0 lg:inset-y-0 p-10 lg:m-4 rounded shadow"
         >
             <header @mouseover="isActive = true" @mouseleave="isActive = false">
-                <div class="flex items-baseline">
-                    <h2
-                        class="text-2xl font-semibold text-gray-800 tracking-wide"
-                    >
-                        {{ project.title }}
-                    </h2>
+                <div class="flex items-baseline items-center justify-between">
+                    <div class="flex items-baseline">
+                        <h2
+                            class="text-2xl font-semibold text-gray-800 tracking-wide"
+                        >
+                            {{ project.title }}
+                        </h2>
 
-                    <div v-if="isActive" class="flex items-baseline">
-                        <EditProject :initProject="project" />
+                        <div v-if="isActive" class="flex items-baseline">
+                            <EditProject :initProject="project" />
 
-                        <button class="ml-2" @click="remove">
-                            <svg
-                                class="h-4 w-4 text-red-400 hover:text-red-500"
-                                fill="currentColor"
-                                viewBox="0 0 20 20"
-                            >
-                                <path
-                                    fill-rule="evenodd"
-                                    d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z"
-                                    clip-rule="evenodd"
-                                ></path>
-                            </svg>
-                        </button>
+                            <button class="ml-2" @click="remove">
+                                <svg
+                                    class="h-4 w-4 text-red-400 hover:text-red-500"
+                                    fill="currentColor"
+                                    viewBox="0 0 20 20"
+                                >
+                                    <path
+                                        fill-rule="evenodd"
+                                        d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z"
+                                        clip-rule="evenodd"
+                                    ></path>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                    <div>
+                        <UserAvatarList
+                            :members="members"
+                            :projectId="project.id"
+                        />
                     </div>
                 </div>
 
@@ -58,6 +66,7 @@
     import CreateTask from '../components/CreateTask.vue';
     import EditProject from '../components/EditProject.vue';
     import TaskList from '../components/TaskList.vue';
+    import UserAvatarList from '../components/UserAvatarList.vue';
     import UserProjectsCard from '../components/UserProjectsCard.vue';
 
     export default {
@@ -67,7 +76,13 @@
             id: { type: [Number, String], required: true },
         },
 
-        components: { CreateTask, EditProject, TaskList, UserProjectsCard },
+        components: {
+            CreateTask,
+            EditProject,
+            TaskList,
+            UserAvatarList,
+            UserProjectsCard,
+        },
 
         data() {
             return {
@@ -77,7 +92,15 @@
 
         computed: {
             ...mapState('auth', ['user']),
+
             ...mapState('project', { project: 'selectedProject' }),
+
+            members() {
+                let members = [];
+                members.push(...this.project.members);
+                members.push(this.project.owner);
+                return members;
+            },
         },
 
         beforeRouteEnter(to, from, next) {

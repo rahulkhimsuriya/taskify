@@ -36,7 +36,7 @@ class ProjectsController extends Controller
     {
         $this->authorize('update', $project);
         
-        $project->load(['owner', 'tasks']);
+        $project->load(['owner', 'tasks', 'members']);
 
         return response()->json(['data' => $project], 200);
     }

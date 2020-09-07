@@ -121,6 +121,20 @@ export const actions = {
             return null;
         });
     },
+
+    sendInvitation({ dispatch }, { projectId, email }) {
+        return axios
+            .post(`/api/projects/${projectId}/invitation`, { email })
+            .then(({ data }) => {
+                const notification = {
+                    type: 'success',
+                    message: data.message,
+                };
+                dispatch('notification/add', notification, { root: true });
+
+                return data.data;
+            });
+    },
 };
 
 export const getters = {
