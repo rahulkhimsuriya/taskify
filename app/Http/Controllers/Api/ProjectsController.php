@@ -14,10 +14,7 @@ class ProjectsController extends Controller
 {
     public function index()
     {
-        $projects = Auth::user()->projects;
-
-        // $projects->load('color');
-        // return $projects;
+        $projects = Auth::user()->accessibleProjects();
 
         return response()->json(['data' => ProjectResource::collection($projects)], 200);
     }

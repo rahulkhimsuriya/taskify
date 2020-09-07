@@ -31,6 +31,11 @@ class Project extends Model
 
     protected $with = ['color'];
 
+    public function path()
+    {
+        return "/projects/{$this->id}";
+    }
+
     public function owner()
     {
         return $this->belongsTo(User::class);
@@ -52,5 +57,15 @@ class Project extends Model
             'user_id' => auth()->id(),
             'body' => $body
         ]);
+    }
+    
+    public function members()
+    {
+        return $this->belongsToMany(User::class, 'project_members')->withTimestamps();
+    }
+
+    public function invite(User $user)
+    {
+        return $this->members()->attach($user);
     }
 }

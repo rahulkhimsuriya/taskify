@@ -18,24 +18,29 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::post('/login', 'Api\AuthController@login');
-Route::post('/register', 'Api\AuthController@register');
 
-Route::get('colors', 'Api\ColorsController@index');
+Route::namespace('Api')->group(function () {
+    Route::post('/login', 'AuthController@login');
+    Route::post('/register', 'AuthController@register');
 
-Route::middleware('auth:api')->group(function () {
-    Route::delete('/logout', 'Api\AuthController@logout');
+    Route::get('colors', 'ColorsController@index');
 
-    Route::apiResource('projects', 'Api\ProjectsController');
+    Route::middleware('auth:api')->group(function () {
+        Route::delete('/logout', 'AuthController@logout');
 
-    Route::post('projects/{project}/tasks', 'Api\ProjectTasksController@store')
-    ->middleware('can:update,project');
+        Route::apiResource('projects', 'ProjectsController');
 
-    Route::patch('projects/{project}/tasks/{task}', 'Api\ProjectTasksController@update')
-    ->middleware('can:update,project');
+        Route::post('projects/{project}/tasks', 'ProjectTasksController@store')
+        ->middleware('can:update,project');
+
+        Route::patch('projects/{project}/tasks/{task}', 'ProjectTasksController@update')
+        ->middleware('can:update,project');
     
-    Route::delete('projects/{project}/tasks/{task}', 'Api\ProjectTasksController@destroy')
-    ->middleware('can:update,project');
+        Route::delete('projects/{project}/tasks/{task}', 'ProjectTasksController@destroy')
+        ->middleware('can:update,project');
 
-    Route::patch('/tasks/{task}/complete', 'Api\TaskCompleteController@update');
+        Route::patch('/tasks/{task}/complete', 'TaskCompleteController@update');
+
+        Route::post('/projects/{project}/invitation', 'ProjectInvitationsController@store');
+    });
 });
