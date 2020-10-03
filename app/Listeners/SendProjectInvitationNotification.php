@@ -19,6 +19,9 @@ class SendProjectInvitationNotification
      */
     public function handle(UserInvitedInProject $event)
     {
-        $event->user->notify(new SendProjectInvitaionNotification($event->project));
+        $event->user->notify(
+            (new SendProjectInvitaionNotification($event->project))
+            ->delay(Carbon::now()->addSeconds(5))
+        );
     }
 }

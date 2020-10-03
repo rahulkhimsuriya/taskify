@@ -8,7 +8,7 @@ use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 
-class SendProjectInvitaionNotification extends Notification
+class SendProjectInvitaionNotification extends Notification implements ShouldQueue
 {
 
     use Queueable;
